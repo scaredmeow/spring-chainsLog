@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>chainsLog</title>
+<link href="css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body class="body">
+	<h1 class="heading-1" th:text = "${hello}"> Hello World!</h1>
+	<a class="heading-3" href= "/signin"> Sign In </a>
+	
+	<form th:action="@{/signout}" method="post">
+		<button class="heading-3" type="submit"> Sign Out </button>	
+	</form>
+</body>
+</html>
