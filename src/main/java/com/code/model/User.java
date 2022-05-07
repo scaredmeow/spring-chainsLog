@@ -15,7 +15,7 @@ public class User {
 	private String confirmPassword;
 	private String role;
 
-	protected User() {
+	public User() {
 	}
 
 	public User(int user_id, 
@@ -111,6 +111,7 @@ public class User {
 				", email='" + email + "\'" +
 				", username='" + username + "\'" +
 				", password='" + password + "\'" +
+				", role='" + role + "\'" +
 				"}";
 	}
 	

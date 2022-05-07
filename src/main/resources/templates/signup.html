@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1><a href="/"> chainsLog </a></h1>
+	<form th:action="@{/signup}" method="post">
+		<fieldset>
+			<legend>Sign Up:</legend>
+			<p> <b> Join the growing community of web 3.0. </b> Create an account to access the latest trends in chain! </p>
+			<label for="email"> Email: </label> 
+				<input type="email" id="email" name="email" required placeholder="Email"> <br> 
+			<div th:if="${existsEmail}" th:text="'Email Already Exists'"></div>
+			<label for="name">	Username: </label> 
+				<input type="text" id="username" name="username" required placeholder="Username"> <br>
+			<div th:if="${existsUser}" th:text="'Username Already Exists'"></div>
+			<label for="password"> Password: </label> 
+				<input type="password" id="password" name="password" required placeholder="Password"> <br> 
+			<div th:if="${errorPassword}=='error'" th:text="'Password must be at minimum of 8 characters, and must contain atleast one lowercase, uppercase, digit and special character (_@#$%^&+=)'"></div>
+			<label for="confirmpassord"> Confirm Password: </label> 
+				<input type="password" id="confirmpassword" name="confirmpassword" required placeholder="Confirm Password">	<br>
+			<div th:if="${errorConfirmPassword}=='error'" th:text="'Password does not match'"></div>
+			<button type="submit">Sign Up</button>
+			<p>Do you have an account? <a href="/signin">Sign In</a> </p>
+		</fieldset>
+	</form>
 </body>
 </html>

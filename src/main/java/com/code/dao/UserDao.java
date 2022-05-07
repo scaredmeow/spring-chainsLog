@@ -10,8 +10,10 @@ import com.code.model.User;
 public interface UserDao {
 	
 	public User findByUserName(String username);
-	public int saveUserRegistration(User user);
 	public List<User> getAllUsers();
 	public List<User> getAllPosts(int UID);
+	public boolean saveUserRegistration(User user);
+	public boolean existsEmail(String email);
+	public boolean existsUsername(String username);
 	
 }

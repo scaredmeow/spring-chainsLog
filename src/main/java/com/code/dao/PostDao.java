@@ -10,9 +10,9 @@ import com.code.model.Post;
 @Component
 public interface PostDao {
 
-	public boolean createPost(int UID);
+	public boolean createPost(Post post);
 	public boolean updatePost(int PID);
 	public boolean deletePost(int PID);
-	public List<Post> getAllPost(int UID);
+	public List<Post> getAllPost();
 
 }

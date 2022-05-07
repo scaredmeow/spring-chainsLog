@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:fragment="header">
+		<meta charset="ISO-8859-1">
+		<title>chainsLog</title>
+	</head>
+	<body>
+		<div th:fragment="navbar">
+			<a th:href="@{/}"><img src="img/logo.png"></a>
+			<span>search bar</span>
+			<a sec:authorize="isAnonymous()" th:href="@{/signin}"> Sign In </a>
+			<a sec:authorize="isAnonymous()" th:href="@{/signup}"> Sign Up </a>	
+			<a sec:authorize="isAuthenticated()" th:href="@{/signout}"> Sign Out</a>	
+		</div>
+	</body>
 </html>

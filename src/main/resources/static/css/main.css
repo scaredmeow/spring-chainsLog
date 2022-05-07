@@ -1,25 +1,24 @@
 @charset "ISO-8859-1";
 
 .body {
-  background-color: #061a25;
+	background-color: #061a25;
 }
 
 .heading-1 {
-  background-color: transparent;
-  font-family: "Fira Sans", sans-serif;
-  color: #fff;
-  font-size: 48px;
-  line-height: 60px;
-  font-weight: 700;
+	background-color: transparent;
+	font-family: "Fira Sans", sans-serif;
+	font-size: 48px;
+	line-height: 60px;
+	font-weight: 700;
 }
 
 .heading-2 {
-  font-family: "Fira Sans", sans-serif;
-  color: #fff;
-  line-height: 40px;
+	font-family: "Fira Sans", sans-serif;
+	color: #fff;
+	line-height: 40px;
 }
 
 .heading-3 {
-  font-family: "Fira Sans", sans-serif;
-  color: #fff;
+	font-family: "Fira Sans", sans-serif;
+	color: #fff;
 }

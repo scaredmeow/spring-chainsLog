@@ -30,17 +30,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/").permitAll()
-			.antMatchers("/authenticated").authenticated()
-			.antMatchers("/admin").hasRole("USER")
+			.antMatchers(
+					"/",
+					"/signin",
+					"/signup", 
+					"/forum", 
+					"/forum/anonymousUser")
+			.permitAll()
+			.antMatchers("/forum/**","/post/**").authenticated()
 			.and()
 			.formLogin()
 			.loginPage("/signin").permitAll()
-			.defaultSuccessUrl("/admin")
+			.defaultSuccessUrl("/forum")
 			.and()
 			.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
-//			.logoutSuccessUrl("/signin")
+			.logoutSuccessUrl("/signin")
 			.and()
 			.rememberMe().tokenValiditySeconds(2592000).key("mySecret");
 	}

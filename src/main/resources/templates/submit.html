@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>chainsLog</title>
+	</head>
+	<body>
+		<h1><a href="/"> chainsLog </a></h1>
+		<p>search bar</p>
+		<a sec:authorize="isAnonymous()" href="/signin"> Sign In </a>
+		<a sec:authorize="isAnonymous()" href="/signup"> Sign Up </a>	
+		<form th:action="@{/signout}" method="post">
+			<button sec:authorize="isAuthenticated()" class="heading-3" type="submit">Sign Out</button>
+		</form>
+		<h1>Create a Post11</h1>
+	
+		<form th:action="@{'/forum/'+${username}}" method="post">
+			<label for="title">Title: </label> 
+				<input type="text" id="title" name="title" required placeholder="Discussion Title"> <br> 
+			<label for="content"> Content: </label> 
+				<textarea id="content" name="content" 
+				rows="4" cols="50" required placeholder="Hey, type anything you want to share on chainsLog . . ."></textarea> <br>
+			<button class="heading-3" type="submit" formmethod="get">Back</button>
+			<button class="heading-3" type="submit">Submit</button>
+		</form>
+	</body>
+</html>
