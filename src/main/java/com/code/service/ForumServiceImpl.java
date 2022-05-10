@@ -23,17 +23,21 @@ public class ForumServiceImpl implements ForumService {
 	
 	private UserDao userDao;
 	private PostDao	postDao;
+	private AuthService authService;	
 	
-	
-	public ForumServiceImpl(UserDao userDao, PostDao postDao) {
+	public ForumServiceImpl(
+			UserDao userDao,
+			PostDao postDao,
+			AuthService authService) {
 		this.userDao = userDao;
 		this.postDao = postDao;
+		this.authService = authService;
 	}
 
 	@Override
-	public ModelAndView getPathUsername(String username, String viewName) {
+	public ModelAndView displayPostandUser(String viewName) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("username", username);
+		modelAndView.addObject("username", this.authService.getUser());
 		List<Post> post = this.postDao.getAllPost();
 		modelAndView.addObject("post", post);
 		modelAndView.setViewName(viewName);
@@ -42,11 +46,10 @@ public class ForumServiceImpl implements ForumService {
 
 	@Override
 	public String createPost(
-			String username, 
 			String title, 
 			String content, 
 			Model model) {
-		user = this.userDao.findByUserName(username);
+		user = this.userDao.findByUserName(this.authService.getUser());
 		int UID = user.getUser_id();
 		post.setContent(content);
 		post.setUser_id(UID);

@@ -5,11 +5,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface ForumService {
 	
-	public ModelAndView getPathUsername(
-			String username,
-			String viewName);
+	public ModelAndView displayPostandUser(String viewName);
 	public String createPost(
-			String username,
 			String title,
 			String content,
 			Model model);

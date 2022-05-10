@@ -11,7 +11,8 @@ import com.code.model.Post;
 public interface PostDao {
 
 	public boolean createPost(Post post);
-	public boolean updatePost(int PID);
+	public Post getPost(int PID);
+	public boolean updatePost(Post post);
 	public boolean deletePost(int PID);
 	public List<Post> getAllPost();
 

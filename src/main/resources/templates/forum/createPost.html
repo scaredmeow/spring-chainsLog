@@ -6,16 +6,10 @@
 		<title>chainsLog</title>
 	</head>
 	<body>
-		<h1><a href="/"> chainsLog </a></h1>
-		<p>search bar</p>
-		<a sec:authorize="isAnonymous()" href="/signin"> Sign In </a>
-		<a sec:authorize="isAnonymous()" href="/signup"> Sign Up </a>	
-		<form th:action="@{/signout}" method="post">
-			<button sec:authorize="isAuthenticated()" class="heading-3" type="submit">Sign Out</button>
-		</form>
+		<div th:replace="fragments.html :: navbar"></div>
 		<h1>Create a Post11</h1>
 	
-		<form th:action="@{'/forum/'+${username}}" method="post">
+		<form th:action="@{/forum}" method="post">
 			<label for="title">Title: </label> 
 				<input type="text" id="title" name="title" required placeholder="Discussion Title"> <br> 
 			<label for="content"> Content: </label> 

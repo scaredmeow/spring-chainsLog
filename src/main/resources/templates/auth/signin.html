@@ -7,7 +7,7 @@
 
 </head>
 <body>
-	<h1><a href="/"> chainsLog </a></h1>
+	<div th:replace="fragments.html :: navbar"></div>
 	<form th:action="@{/signin}" method="post">
 		<fieldset>
 			<legend>Sign In:</legend>
@@ -20,7 +20,7 @@
 			<input type="checkbox" id="remember-me" name="remember-me">
 			<label for="remember-me"> Remember me</label>
 			<button type="submit" id="signIn">Sign In</button>
-			<p> Need an account? <a href="/signup"> Create your chainsLog account.</a></p>
+			<p> Need an account? <a th:href="@{/signup}"> Create your chainsLog account.</a></p>
 		</fieldset>
 	</form>
 

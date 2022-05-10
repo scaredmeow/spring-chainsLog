@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1><a href="/"> chainsLog </a></h1>
+	<div th:replace="fragments.html :: navbar"></div>
 	<form th:action="@{/signup}" method="post">
 		<fieldset>
 			<legend>Sign Up:</legend>
@@ -24,7 +24,7 @@
 				<input type="password" id="confirmpassword" name="confirmpassword" required placeholder="Confirm Password">	<br>
 			<div th:if="${errorConfirmPassword}=='error'" th:text="'Password does not match'"></div>
 			<button type="submit">Sign Up</button>
-			<p>Do you have an account? <a href="/signin">Sign In</a> </p>
+			<p>Do you have an account? <a th:href="@{/signin}">Sign In</a> </p>
 		</fieldset>
 	</form>
 </body>

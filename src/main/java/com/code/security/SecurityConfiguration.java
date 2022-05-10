@@ -32,22 +32,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers(
 					"/",
-					"/signin",
 					"/signup", 
-					"/forum", 
-					"/forum/anonymousUser")
-			.permitAll()
-			.antMatchers("/forum/**","/post/**").authenticated()
+					"/forum").permitAll()
+			.antMatchers(
+					"/forum/**",
+					"/post/**",
+					"/user/**",
+					"/post",
+					"/post/**").authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/signin").permitAll()
-			.defaultSuccessUrl("/forum")
+				.loginPage("/signin").permitAll()
+				.defaultSuccessUrl("/forum")
 			.and()
 			.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
-			.logoutSuccessUrl("/signin")
+				.logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
+				.logoutSuccessUrl("/signin")
 			.and()
-			.rememberMe().tokenValiditySeconds(2592000).key("mySecret");
+				.rememberMe()
+				.tokenValiditySeconds(2592000).key("mySecret");
 	}
 	
 

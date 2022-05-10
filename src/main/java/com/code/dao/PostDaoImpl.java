@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -29,20 +30,31 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public boolean updatePost(int PID) {
-		// TODO Auto-generated method stub
-		return false;
+	public Post getPost(int PID) {
+		String sql = "SELECT * FROM posts WHERE post_id = " + PID;
+		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Post.class));
+	}
+	
+	@Override
+	public boolean updatePost(Post post) {
+		String sql = "UPDATE posts SET title= ?, content= ? WHERE post_id = ?";
+		return jdbcTemplate.update(
+				 sql, 
+				 post.getTitle(),
+				 post.getContent(),
+				 post.getPost_id()) == 1;
 	}
 
 	@Override
 	public boolean deletePost(int PID) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "DELETE FROM posts WHERE post_id = ?";
+		Object[] args = new Object[] {PID};
+		return jdbcTemplate.update(sql, args) == 1;
 	}
 
 	@Override
 	public List<Post> getAllPost() {
-		String sql="SELECT * FROM posts";
+		String sql="SELECT * FROM posts ORDER BY post_id DESC";
 		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
 			@Override
 			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -58,6 +70,5 @@ public class PostDaoImpl implements PostDao {
 		});
 		return listOfPosts;
 	}
-
 
 }

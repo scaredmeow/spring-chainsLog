@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.code.model.Post;
 import com.code.model.User;
 
 @Repository
@@ -44,6 +45,12 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	public User findByUserID(int UID) {
+		String sql = "SELECT * FROM users WHERE user_id = " + UID;
+		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(User.class));
+	}
+	
+	@Override
 	public boolean saveUserRegistration(User user) {
 		String sql = "INSERT INTO users(email,username,password,role) VALUES(?, ?, ?, ?)";
 		return jdbcTemplate.update(
@@ -55,9 +62,22 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> getAllPosts(int UID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Post> getAllUserPosts(int UID) {
+		String sql="SELECT * FROM posts WHERE user_id = " + UID + " ORDER BY post_id DESC" ;
+		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
+			@Override
+			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Post post = new Post();
+				post.setPost_id(rs.getInt("post_id"));
+				post.setUser_id(rs.getInt("user_id"));
+				post.setTitle(rs.getString("title"));
+				post.setContent(rs.getString("content"));
+				post.setVote(rs.getInt("vote"));
+				post.setCreated_at(rs.getTimestamp("created_at"));
+				return post;
+			}
+		});
+		return listOfPosts;
 	}
 
 	@Override

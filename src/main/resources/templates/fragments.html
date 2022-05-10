@@ -7,10 +7,13 @@
 	</head>
 	<body>
 		<div th:fragment="navbar">
-			<a th:href="@{/}"><img src="img/logo.png"></a>
+			<a th:href="@{/forum}"><img th:src="@{/img/logo.png}"></a>
 			<span>search bar</span>
 			<a sec:authorize="isAnonymous()" th:href="@{/signin}"> Sign In </a>
-			<a sec:authorize="isAnonymous()" th:href="@{/signup}"> Sign Up </a>	
+			<a sec:authorize="isAnonymous()" th:href="@{/signup}"> Sign Up </a>
+			<a sec:authorize="isAuthenticated()" th:href="@{/user}">
+				<span th:text="${username}"></span>	
+			</a>
 			<a sec:authorize="isAuthenticated()" th:href="@{/signout}"> Sign Out</a>	
 		</div>
 	</body>

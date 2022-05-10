@@ -4,6 +4,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
 			String email, 
 			String password, 
 			String confirmpassword,
+			String viewName,
 			Model model) {
 		
 		boolean existsUser = this.userDao.existsUsername(username);
@@ -67,11 +70,11 @@ public class AuthServiceImpl implements AuthService {
 				return mav;
 										
 			} else {
-				modelAndView.setViewName("signup");
+				modelAndView.setViewName(viewName);
 			}
 			
 		} else {
-			modelAndView.setViewName("signup");
+			modelAndView.setViewName(viewName);
 			modelAndView.setStatus(HttpStatus.CONFLICT);
 		}
 
@@ -89,7 +92,17 @@ public class AuthServiceImpl implements AuthService {
 			String username = principal.toString();
 			return username;
 		}
-		
 	}
 
+	@Override
+	public String redirect(String viewName) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return viewName;
+		}
+		
+		return "redirect:/forum";
+	}
+	
 }

@@ -25,36 +25,32 @@ public class HomeController {
 	}	
 	
 	@GetMapping
-	public String hello(Model model) {
+	public String indexPage(Model model) {
 		String username = this.authService.getUser();
-		model.addAttribute("hello", username);
+		model.addAttribute("username", username);
 		return "index";
 	}
 	
 	
 	@GetMapping("/signin")
 	public String signinPage() {
-		return "signin";
+		return this.authService.redirect("auth/signin");
 	}
 	
 
 	@GetMapping("/signup")
 	public String signupPage() {
-		return "signup";
+		return this.authService.redirect("auth/signup");
 	}
 	
 	@PostMapping("/signup")
-	public ModelAndView signup(
+	public ModelAndView signupPost(
 			@RequestParam("username") String username,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			@RequestParam("confirmpassword") String confirmpassword,
 			Model model) {
-		return this.authService.signup(username, email, password, confirmpassword, model);
+		return this.authService.signup(username, email, password, confirmpassword, "auth/signup" ,  model);
 	}
 	
-	@GetMapping("/admin")
-	public String admin() {
-		return "admin";
-	}
 }

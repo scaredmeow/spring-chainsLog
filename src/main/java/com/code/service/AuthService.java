@@ -10,7 +10,8 @@ public interface AuthService {
 			String email,
 			String password,
 			String confirmpassword,
+			String viewName,
 			Model model);
 	public String getUser();
-	
+	public String redirect(String viewName);
 }
