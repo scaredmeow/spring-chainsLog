@@ -317,14 +317,11 @@
 .form-container {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: left;
   padding: 1rem;
   border: 1px solid var(--global-box-border-color);
   border-radius: 4px;
   background-color: var(--global-background-color-post);
-  margin: 0.5rem 0;
-  /* gap: 1rem; */
+  margin: 0.5rem 0rem;
 }
 
 .form {
@@ -340,8 +337,6 @@
 .form-fields {
   display: flex;
   flex-direction: column;
-  margin: 0rem;
-  flex: 1;
 }
 
 .form-fields input,
@@ -353,9 +348,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: center;
   gap: 0.3rem;
-  flex: 1;
   margin-top: 0.5rem;
 }
 
@@ -391,12 +384,12 @@
   flex-direction: row;
   align-items: top;
   border: 0px;
-  padding-bottom: 0.3rem;
+  padding-bottom: 1rem;
 }
 
 .comment .post-buttons button {
-  height: 1.25rem;
-  width: 3.75rem;
+  height: 1.5rem;
+  width: 4rem;
 }
 
 .comment .post-content {
@@ -433,9 +426,9 @@
 .comment-container .post:hover .post-header {
   border-bottom: 2px solid var(--global-box-border-color);
 }
-.main-div .comment-container {
+/* .main-div .comment-container {
   background-color: var(--global-background-color-post);
-}
+} */
 
 .comment-container .comment:hover .post-header {
   border: 0px;

@@ -1,6 +1,5 @@
 package com.code.model;
 
-import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
@@ -10,7 +9,7 @@ public class Comment {
 	private int post_id;
 	private int user_id;
 	private String content;
-	private Timestamp created_at;
+	private String created_at;
 	private String username;
 
 	public Comment() {
@@ -20,7 +19,7 @@ public class Comment {
 			int post_id, 
 			int user_id, 
 			String content, 
-			Timestamp created_at) {
+			String created_at) {
 		this.comment_id = comment_id;
 		this.post_id = post_id;
 		this.user_id = user_id;
@@ -31,7 +30,7 @@ public class Comment {
 	public Comment(int post_id, 
 			int user_id, 
 			String content, 
-			Timestamp created_at) {
+			String created_at) {
 		this.post_id = post_id;
 		this.user_id = user_id;
 		this.content = content;
@@ -78,11 +77,11 @@ public class Comment {
 		this.content = content;
 	}
 
-	public Timestamp getCreated_at() {
+	public String getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Timestamp created_at) {
+	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
 

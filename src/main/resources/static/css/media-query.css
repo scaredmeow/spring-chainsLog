@@ -40,3 +40,12 @@
     padding-right: 0.5rem;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .form-container {
+    margin-right: 10%;
+  }
+  .form-container .form form {
+    width: 80%;
+  }
+}

@@ -2,6 +2,7 @@ package com.code.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +44,18 @@ public class CommentDaoImpl implements CommentDao {
 				+ "FROM comments as c JOIN users as u on u.user_id = c.user_id WHERE c.post_id = " 
 				+ PID + " ORDER BY created_at DESC";
 		List<Comment> listOfComments = jdbcTemplate.query(sql, new RowMapper<Comment>() {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy - hh:mm a");
+			
 			@Override
 			public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Comment comment = new Comment();
+				String date  = dateFormat.format(rs.getTimestamp("created_at"));
 				comment.setComment_id(rs.getInt("comment_id"));
 				comment.setPost_id(rs.getInt("post_id"));
 				comment.setUser_id(rs.getInt("user_id"));
 				comment.setUsername(rs.getString("username"));
 				comment.setContent(rs.getString("content"));
-				comment.setCreated_at(rs.getTimestamp("created_at"));
+				comment.setCreated_at(date);
 				return comment;
 			}
 		});

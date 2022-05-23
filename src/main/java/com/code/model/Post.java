@@ -1,7 +1,5 @@
 package com.code.model;
 
-import java.sql.Timestamp;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +10,7 @@ public class Post {
 	private String title;
 	private String content;
 	private int vote;
-	private Timestamp created_at;
+	private String created_at;
 	
 	public Post() {
 	}
@@ -22,7 +20,7 @@ public class Post {
 			String title, 
 			String content, 
 			int vote, 
-			Timestamp created_at) {
+			String created_at) {
 		this.post_id = post_id;
 		this.user_id = user_id;
 		this.title = title;
@@ -35,7 +33,7 @@ public class Post {
 			String title, 
 			String content, 
 			int vote, 
-			Timestamp created_at) {
+			String created_at) {
 		this.user_id = user_id;
 		this.title = title;
 		this.content = content;
@@ -64,7 +62,7 @@ public class Post {
 	public Post(int user_id, 
 			String title, 
 			String content, 
-			Timestamp created_at) {
+			String created_at) {
 		this.user_id = user_id;
 		this.title = title;
 		this.content = content;
@@ -111,11 +109,11 @@ public class Post {
 		this.vote = vote;
 	}
 
-	public Timestamp getCreated_at() {
+	public String getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Timestamp created_at) {
+	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
 

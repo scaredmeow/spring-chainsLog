@@ -2,6 +2,7 @@ package com.code.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,16 +68,19 @@ public class UserDaoImpl implements UserDao {
 				+ "FROM posts as p JOIN users as u on u.user_id = p.user_id WHERE p.user_id = " 
 				+ UID + " ORDER BY created_at DESC" ;
 		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy - hh:mm a");
+			
 			@Override
 			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Post post = new Post();
+				String date = dateFormat.format(rs.getTimestamp("created_at"));
 				post.setPost_id(rs.getInt("post_id"));
 				post.setUser_id(rs.getInt("user_id"));
 				post.setUsername(rs.getString("username"));
 				post.setTitle(rs.getString("title"));
 				post.setContent(rs.getString("content"));
 				post.setVote(rs.getInt("vote"));
-				post.setCreated_at(rs.getTimestamp("created_at"));
+				post.setCreated_at(date);
 				return post;
 			}
 		});

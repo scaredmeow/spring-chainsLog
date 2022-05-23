@@ -30,7 +30,7 @@
 		                        </div>
 		                        <div class="post-title">
 		                            <h2 th:text="${post.title}">Post Title</h2>
-		                            <span class="subtitle" th:text="${post.username}">
+		                            <span class="subtitle" th:text="${post.username} + ' posted on ' + ${post.created_at}">
 		                                Username and Date of Creation
 		                            </span>
 		                        </div>

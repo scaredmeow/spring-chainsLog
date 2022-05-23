@@ -18,7 +18,7 @@
 	                    </div>
 	                    <div class="post-title">
 	                        <h2 th:text="${post.title}">Title</h2>
-	                        <span class="subtitle" th:text="${post.username}">
+	                        <span class="subtitle" th:text="${post.username} + ' posted on ' + ${post.created_at}">
 	                            User Name and Date Created
 	                        </span>
 	                    </div>
@@ -69,6 +69,7 @@
 	                    </div>
 	                    <div class="post-title">
 	                        <h2 class="h3" th:text="${comment.username}">Username</h2>
+	                        <span class="body-2" th:text="${comment.created_at}">Created</span>
 	                    </div>
 	                    <div class="post-buttons" th:if="${currentUser} == ${comment.username}">
                         	<button 

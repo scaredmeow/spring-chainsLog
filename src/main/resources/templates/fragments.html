@@ -19,7 +19,10 @@
 		<form id="hidden-form" method="post" th:action="@{/forum/search}"></form>
 		<form id="hidden-form-buttons"></form>
             <div class="nav-bar-left">
-	            <a th:href="@{/forum}">
+	            <a  sec:authorize="isAnonymous()" th:href="@{/}">
+	                <img class="logo" th:src="@{/img/icon-logo.png}">
+	            </a>
+   	            <a sec:authorize="isAuthenticated()" th:href="@{/forum}">
 	                <img class="logo" th:src="@{/img/icon-logo.png}">
 	            </a>
             </div>

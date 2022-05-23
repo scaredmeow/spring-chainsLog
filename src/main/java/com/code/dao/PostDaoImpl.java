@@ -2,6 +2,7 @@ package com.code.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,21 +65,23 @@ public class PostDaoImpl implements PostDao {
 				+ "LEFT JOIN posts as p\r\n"
 				+ "ON p.post_id = n.post_id\r\n"
 				+ "GROUP BY p.post_id\r\n"
-				+ "ORDER BY COUNT(c.post_id) DESC, p.created_at DESC\r\n"
-				+ "LIMIT 5) as k \r\n"
+				+ "ORDER BY COUNT(c.post_id) DESC, p.created_at DESC) as k \r\n"
 				+ "ON u.user_id = k.user_id\r\n"
 				+ "ORDER BY k.created_at DESC\r\n";
 		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+			
 			@Override
 			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Post post = new Post();
+				String date = dateFormat.format(rs.getTimestamp("created_at"));
 				post.setPost_id(rs.getInt("post_id"));
 				post.setUser_id(rs.getInt("user_id"));
 				post.setUsername(rs.getString("username"));
 				post.setTitle(rs.getString("title"));
 				post.setContent(rs.getString("content"));
 				post.setVote(rs.getInt("comments"));
-				post.setCreated_at(rs.getTimestamp("created_at"));
+				post.setCreated_at(date);
 				return post;
 			}
 		});
@@ -101,6 +104,7 @@ public class PostDaoImpl implements PostDao {
 				+ "ON u.user_id = k.user_id\r\n"
 				+ "ORDER BY k.comments DESC";
 		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
+			
 			@Override
 			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Post post = new Post();
@@ -120,18 +124,20 @@ public class PostDaoImpl implements PostDao {
 	public List<Post> searchPost(String search) {
 		String sql = "SELECT p.post_id, p.user_id, u.username, p.title ,p.content, p.vote, p.created_at FROM "
 					+ "posts as p JOIN users as u on u.user_id = p.user_id WHERE p.title LIKE ? "
-					+ "ORDER BY created_at DESC LIMIT 5";
+					+ "ORDER BY created_at DESC";
 		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
 			@Override
 			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Post post = new Post();
+				String date = dateFormat.format(rs.getTimestamp("created_at"));
 				post.setPost_id(rs.getInt("post_id"));
 				post.setUser_id(rs.getInt("user_id"));
 				post.setUsername(rs.getString("username"));
 				post.setTitle(rs.getString("title"));
 				post.setContent(rs.getString("content"));
 				post.setVote(rs.getInt("vote"));
-				post.setCreated_at(rs.getTimestamp("created_at"));
+				post.setCreated_at(date);
 				return post;
 			}
 		} , new Object[] {"%" + search.toLowerCase().trim() + "%"} );

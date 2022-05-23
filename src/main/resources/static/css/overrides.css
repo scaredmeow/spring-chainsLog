@@ -142,7 +142,7 @@ input[type="checkbox"] {
 
 .textarea {
   background-position: 1rem;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--global-background-color-post);
   color: var(--global-foreground-color);
   border: 1px solid var(--global-foreground-color);
   padding: 1rem 1rem;
