@@ -20,10 +20,12 @@ A CRUD [Spring Boot](http://projects.spring.io/spring-boot/) project focused in 
 **Forum Page**
 ![image](https://user-images.githubusercontent.com/32029746/169802119-6bc138c0-4c74-47b6-b8d7-69968958dddf.png)
 
-**New Post Page**
-![image](https://user-images.githubusercontent.com/32029746/169801476-86bb434a-3c02-47e3-9cf8-d94bcfa80b7b.png)
+**Create a New Post Page**
+![image](https://user-images.githubusercontent.com/32029746/169803726-61109f73-1d16-4338-aab5-3b07b81bff00.png)
 
 **Post Page**
+![image](https://user-images.githubusercontent.com/32029746/169803537-06014dc1-5d57-47c8-a0e5-8194c23b04ed.png)
+
 
 ## Requirements
 
