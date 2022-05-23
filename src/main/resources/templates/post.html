@@ -22,7 +22,21 @@
 	                            User Name and Date Created
 	                        </span>
 	                    </div>
-                        <div class="post-buttons" th:if="${post.username} == ${currentUser}">
+                        <div class="post-buttons" sec:authorize="hasRole('ROLE_ADMIN')">
+	                        <button 
+      	                    	th:formaction="@{'/post/'+${post.post_id}+'/delete'}" 
+                   				th:form="hidden-form-buttons"
+	                        	class="error-button button-1">
+	                        		Delete
+	                        </button>
+	                        <button 
+	                            th:formaction="@{'/post/'+${post.post_id}+'/update'}" 
+                   				th:form="hidden-form-buttons"
+	                        	class="action-button-rounded button-1">
+	                        		Update
+	                        </button>
+                    	</div>
+                    	<div class="post-buttons" th:if="${post.username} == ${currentUser}">
 	                        <button 
       	                    	th:formaction="@{'/post/'+${post.post_id}+'/delete'}" 
                    				th:form="hidden-form-buttons"
@@ -72,6 +86,14 @@
 	                        <span class="body-2" th:text="${comment.created_at}">Created</span>
 	                    </div>
 	                    <div class="post-buttons" th:if="${currentUser} == ${comment.username}">
+                        	<button 
+                        		th:formaction="@{'/post/'+ ${post.post_id} +'/comment/'+${comment.comment_id}+'/delete'}" 
+                   				th:form="hidden-form-buttons"
+                        		class="error-button button-1">
+                        			Delete
+                        	</button>
+                    	</div>
+                    	<div class="post-buttons" sec:authorize="hasRole('ROLE_ADMIN')">
                         	<button 
                         		th:formaction="@{'/post/'+ ${post.post_id} +'/comment/'+${comment.comment_id}+'/delete'}" 
                    				th:form="hidden-form-buttons"
