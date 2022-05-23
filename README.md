@@ -41,6 +41,12 @@ This project is done through [Eclipse IDE](https://www.eclipse.org/downloads/pac
 
 Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
 
+**get dependencies**
+```shell
+mvn clean install
+```
+
+**run application locally**
 ```shell
 mvn spring-boot:run
 ```
