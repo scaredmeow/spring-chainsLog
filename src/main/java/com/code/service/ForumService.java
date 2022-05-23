@@ -10,4 +10,5 @@ public interface ForumService {
 			String title,
 			String content,
 			Model model);
+	public ModelAndView search(String search, String viewName);
 }

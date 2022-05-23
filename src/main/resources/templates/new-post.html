@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
+	  
+	<head th:replace="fragments.html :: header">
+	</head>
+	<body>
+		<div th:replace="fragments.html :: navbar"></div>
+		
+	    <div class="main-div">
+	        <div class="left-container">
+	            <div class="form-container">
+	                <div class="post-avatar">
+	                    <img th:src="@{/img/icon-avatar.png}">
+	                </div>
+	                <div class="form">
+	                    <form th:action="@{/forum}" method="post">
+	                        <div class="form-fields">
+	                            <input 
+	                            	type="text" 
+	                            	id="title" 
+	                            	name="title"
+	                            	class="textbox body-1" 
+	                            	placeholder="Discussion Title"
+	                            	required>
+	                            <textarea 
+	                            	id="content" 
+	                            	name="content"
+	                            	class="textarea subtitle"
+	                                placeholder="Hey, type anything you want to share on chainsLog . . ."
+	                                required></textarea>
+	                            <div class="form-buttons">
+	                                <button 
+	                                	class="error-button button-1"
+	                                	formmethod="get" 
+	                                	formnovalidate>
+	                                		Back
+	                                </button>
+	                                <button class="action-button-rounded button-1">Post</button>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>			
+	        <div class="right-container" th:replace="fragments.html :: right-container">
+       		</div>
+		</div>
+	</body>
+</html>

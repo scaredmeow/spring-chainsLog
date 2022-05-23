@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
 		modelAndView.addObject("existsEmail",existsEmail);
 		modelAndView.addObject("existsUser",existsUser);
 		
-		if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_@#$%^&+=])[^\\s]{8,}$",password)) {
+		if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[^\\s]{8,}$",password)) {
 			modelAndView.addObject("errorPassword","error");
 		}
 		if (!confirmpassword.equals(password)) {				

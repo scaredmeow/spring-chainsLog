@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
+
+	<head th:replace="fragments.html :: header">
+	</head>
+	<body style="padding-top:0rem">
+		<div class="whole-page">
+	        <div class="signin-container signup">
+	            <div class="vertical-logo">
+		            <a th:href="@{/}">
+		            	<img class="icon-logo" th:src="@{/img/icon-logo-vertical.png}">
+		            </a>
+	            </div>
+	            <div class="signin-header">
+	                <h1>Sign Up</h1>
+	                <span class="body-1">
+	                	<b>Join the growing community of web 3.0.</b> 
+	                	Create an account to access the latest trends in chain!
+                    </span>
+	            </div>
+	            <div class="signin-form">
+	                <form th:action="@{/signup}" method="post">
+	                    <div class="form-fields">
+	                        <input 
+	                        	type="email" 
+	                        	id="email" 
+	                        	name="email"
+	                        	class="textbox body-2" 
+	                        	placeholder="Email"
+	                        	required>
+	                        <p class="body-2" th:if="${existsEmail}">
+	                            Email already exists
+	                        </p>
+	                        <input 
+	                        	type="text" 
+	                        	id="username" 
+	                        	name="username"
+	                        	class="textbox body-2" 
+	                        	placeholder="Username" 
+	                        	minlength="6" 
+	                        	maxlength="60"
+	                            required>
+	                        <p class="body-2" th:if="${existsUser}">
+	                            Username already exists
+	                        </p>
+	                        <input 
+	                        	type="password" 
+	                        	id="password" 
+	                        	name="password"
+	                        	class="textbox body-2" 
+	                        	placeholder="Password"
+	                        	required>
+	                        <p class="body-2" th:if="${errorPassword}=='error'">
+	                            Password must be at minimum of 8 characters, and must contain atleast one lowercase,
+	                            uppercase, and digit
+	                        </p>
+	                        <input 
+	                        	type="password"
+	                        	id="confirmpassword" 
+	                        	name="confirmpassword" 
+	                        	class="textbox body-2" 
+	                        	placeholder="Confirm Password"
+	                        	required>
+	                        <p class="body-2" th:if="${errorConfirmPassword}=='error'">
+	                            Password does not match
+	                        </p>
+	                    </div>
+	                    <div class="form-buttons">
+	                        <button class="action-button button-1">
+	                        	Sign Up
+                        	</button>
+	                    </div>
+	                </form>
+	            </div>
+	            <span class="body-2 redirect">
+	            	Do you have an account? &nbsp 
+	            	<a th:href="@{/signin}">
+	            		Sign In
+	            	</a>
+            	</span>
+	        </div>
+    	</div>
+	</body>
+</html>

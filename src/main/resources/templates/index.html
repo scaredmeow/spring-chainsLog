@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
 	  
-	<head>
-		<meta charset="ISO-8859-1">
-		<title>chainsLog</title>
-		<link href="css/main.css" rel="stylesheet" type="text/css">
+	<head th:replace="fragments.html :: header">
 	</head>
 	<body>
+		<div class="hero">
+			<div th:replace="fragments.html :: navbar"></div>
+	        <div class="index">
+	            <div class="index-catchphrase">
+	                <h1 id="banner-catchphrase">
+	                    space for individuals who wants ownership
+	                </h1>
+	                <h3 id="banner-catchphrase-subtext">
+	                    Learn, Own, Connect, Trade
+	                </h3>
+	                <button 
+	                	th:form="hidden-form-buttons"
+	                	th:formaction="@{/forum}"
+	                	class="action-button button-1" >
+	                    	Explore
+	                </button>
+	            </div>
+	            <div class="index-cover">
+	                <img th:src="@{img/cover.png}">
+	            </div>
+	        </div>		
+		</div>
 
-		<div th:replace="fragments.html :: navbar"></div>
-		
-		<h1 class="heading-1"> space for individuals who wants ownership</h1>
-		<p> Learn, Own, Connect, Trade </p>
-
-		
-		<a th:href="@{/forum}"> Explore </a>
-	
-	
 	</body>
 </html>

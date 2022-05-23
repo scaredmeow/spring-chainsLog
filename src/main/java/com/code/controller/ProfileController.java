@@ -32,7 +32,7 @@ public class ProfileController {
 	
 	@GetMapping("/{username}")
 	public ModelAndView userPage(@PathVariable("username") String username) {
-		return this.profileService.displayUserPosts(username, "profile/profile");
+		return this.profileService.displayUserPosts(username, "profile");
 	}
 
 }

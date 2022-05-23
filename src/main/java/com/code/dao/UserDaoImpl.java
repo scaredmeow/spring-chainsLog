@@ -63,13 +63,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Post> getAllUserPosts(int UID) {
-		String sql="SELECT * FROM posts WHERE user_id = " + UID + " ORDER BY post_id DESC" ;
+		String sql="SELECT p.post_id, p.user_id, u.username, p.title ,p.content, p.vote, p.created_at "
+				+ "FROM posts as p JOIN users as u on u.user_id = p.user_id WHERE p.user_id = " 
+				+ UID + " ORDER BY created_at DESC" ;
 		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
 			@Override
 			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Post post = new Post();
 				post.setPost_id(rs.getInt("post_id"));
 				post.setUser_id(rs.getInt("user_id"));
+				post.setUsername(rs.getString("username"));
 				post.setTitle(rs.getString("title"));
 				post.setContent(rs.getString("content"));
 				post.setVote(rs.getInt("vote"));

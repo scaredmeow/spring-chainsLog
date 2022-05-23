@@ -15,5 +15,7 @@ public interface PostDao {
 	public boolean updatePost(Post post);
 	public boolean deletePost(int PID);
 	public List<Post> getAllPost();
+	public List<Post> getTrend();
+	public List<Post> searchPost(String search);
 
 }

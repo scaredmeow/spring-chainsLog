@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class Post {
 	private int post_id;
 	private int user_id;
+	private String username;
 	private String title;
 	private String content;
 	private int vote;
@@ -118,10 +119,19 @@ public class Post {
 		this.created_at = created_at;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	@Override
 	public String toString() {
 		return "Post {post_id=" + post_id + 
 				", user_id=" + user_id + 
+				", username='" + username + "\'" +
 				", title='" + title + "\'" +
 				", content='" + content + "\'" +
 				", vote=" + vote + 

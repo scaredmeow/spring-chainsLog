@@ -1,0 +1,42 @@
+@media screen and (min-width: 0px) and (max-width: 510px) {
+  .nav-bar-search {
+    display: none;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+  .index-catchphrase {
+    width: 90% !important;
+    justify-content: left;
+  }
+
+  .index-cover img {
+    display: none;
+  }
+
+  .right-container {
+    display: none;
+  }
+
+  .left-container {
+    margin-right: 10%;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 650px) {
+  .comment-container .post-buttons,
+  .profile-div .post-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: right;
+    flex: 1;
+    gap: 0.5rem;
+    flex-flow: column wrap;
+    align-content: flex-end;
+    /* padding: 0.5rem 1rem; */
+  }
+
+  .post-header {
+    padding-right: 0.5rem;
+  }
+}

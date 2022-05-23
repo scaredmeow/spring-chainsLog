@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
+	  
+	<head th:replace="fragments.html :: header">
+	</head>
+	<body style="background-image: url(/img/bg-forum.png);">
+		<div th:replace="fragments.html :: navbar"></div>
+
+		<div class="main-div">
+	        <div class="left-container">
+	            <div class="create-post" sec:authorize="isAuthenticated()">
+	                <div class="post-avatar">
+	                    <img th:src="@{/img/icon-avatar.png}">
+	                </div>
+	                <a th:href="@{'/forum/create-a-post'}">
+			              <span class="post-input">
+			                    <span class="body-1">What's on your mind?</span>
+			              </span>                
+	                </a>
+	            </div>
+	            <div th:if="${param.error}"><h3>Error in Forum Board</h3></div>
+	            <div class="post" th:each="post: ${post}">
+	            	<a th:href="@{'/post/'+${post.post_id}}">
+		                <span>
+		                    <div class="post-header">
+		                        <div class="post-avatar">
+		                            <img th:src="@{/img/icon-avatar.png}">
+		                        </div>
+		                        <div class="post-title">
+		                            <h2 th:text="${post.title}">Post Title</h2>
+		                            <span class="subtitle" th:text="${post.username}">
+		                                Username and Date of Creation
+		                            </span>
+		                        </div>
+	                            <div class="post-comment-count">
+	                            	<img th:src="@{/img/icon-comment.png}">
+	                            	<span class="body-1" th:text="${post.vote}">5</span>
+	                        	</div>
+		                    </div>
+		                    <div class="post-content">
+		                        <p class="body-1" th:text="${post.content}">
+		                            Post Content
+		                        </p>
+		                    </div>
+		                </span>
+	                </a>
+	            </div>
+	        </div>
+	        <div class="right-container" th:replace="fragments.html :: right-container">
+	        </div>
+	    </div>
+	</body>
+</html>

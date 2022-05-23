@@ -1,0 +1,152 @@
+/* Layout Overrides*/
+
+body {
+  background-color: var(--global-background-color);
+  background-image: url("/img/bg-stars.png");
+  margin: 0;
+  padding-top: 3.75rem;
+}
+
+h1,
+h2,
+h3,
+p,
+span {
+  color: var(--global-foreground-color);
+}
+
+a {
+  color: var(--global-action-color);
+}
+
+/* Button Overrides */
+
+button {
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.button-white,
+.button-white-filled,
+.action-button,
+.action-button-rounded,
+.error-button {
+  transition: opacity 0.15s, background-color 0.15s, color 0.15s;
+  width: 4.5rem;
+  height: 1.875rem;
+  vertical-align: top;
+  border: 0px;
+  border-radius: 8px;
+}
+
+.button-white {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--global-foreground-color);
+  border: 2px solid var(--global-foreground-color);
+}
+
+.button-white-filled {
+  background-color: var(--global-foreground-color);
+  color: var(--global-background-color);
+}
+
+.button-white-user {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--global-foreground-color);
+  height: 1.875rem;
+  vertical-align: top;
+  padding: 0rem 1rem 0rem 2rem;
+  background: url(/img/icon-avatar.png) left no-repeat;
+  background-size: 1.125rem;
+  background-position: 0.5rem;
+  border-radius: 8px;
+  border: 2px solid var(--global-foreground-color);
+}
+
+.action-button {
+  background-color: var(--global-action-color);
+  color: var(--global-foreground-color);
+  border-radius: 0px;
+}
+
+.action-button-rounded {
+  background-color: var(--global-action-color);
+  color: var(--global-foreground-color);
+}
+
+.error-button {
+  background-color: var(--global-error-color);
+  color: var(--global-foreground-color);
+}
+
+.button-white:hover,
+.button-white-user:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: var(--global-action-color) solid 2px;
+}
+
+.button-white-filled:hover {
+  background-color: var(--global-action-color);
+  color: var(--global-foreground-color);
+}
+
+.action-button:hover,
+.action-button-rounded:hover {
+  background-color: var(--global-action-hover-color);
+}
+
+.error-button:hover {
+  background-color: var(--global-error-hover-color);
+}
+
+.action-button:active,
+.action-button-rounded:active,
+.error-button:active,
+.button-white:active,
+.button-white-filled:active {
+  opacity: 0.9;
+}
+
+/* Text Input Overrides */
+
+::placeholder {
+  color: var(--global-foreground-color);
+  opacity: 0.75;
+}
+
+.search {
+  background: url(/img/icon-search.png) left no-repeat;
+  background-size: 1.125rem;
+  background-position: 1rem;
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--global-foreground-color);
+  padding-left: 3rem;
+  width: 25%;
+  height: 1.475rem;
+  border: 2px solid var(--global-foreground-color);
+  border-radius: 8px;
+}
+
+.textbox {
+  background-position: 1rem;
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--global-foreground-color);
+  border: 1px solid var(--global-foreground-color);
+  height: 2.5rem;
+  padding-left: 1rem;
+}
+
+.textarea {
+  background-position: 1rem;
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--global-foreground-color);
+  border: 1px solid var(--global-foreground-color);
+  padding: 1rem 1rem;
+  resize: none;
+  margin-top: 1rem;
+  height: 20rem;
+}

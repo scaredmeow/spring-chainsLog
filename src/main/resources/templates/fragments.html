@@ -1,20 +1,94 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  
 	<head th:fragment="header">
-		<meta charset="ISO-8859-1">
-		<title>chainsLog</title>
+	    <meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link th:href="@{/css/style.css}" rel="stylesheet">
+	    <link th:href="@{/css/main.css}" rel="stylesheet">
+	    <link th:href="@{/css/overrides.css}" rel="stylesheet">
+	    <link th:href="@{/css/media-query.css}" rel="stylesheet">
+	    <link rel="icon" th:href="@{/img/icon-chainslog.ico}">
+	    <title>chainsLog</title>
 	</head>
+	
 	<body>
-		<div th:fragment="navbar">
-			<a th:href="@{/forum}"><img th:src="@{/img/logo.png}"></a>
-			<span>search bar</span>
-			<a sec:authorize="isAnonymous()" th:href="@{/signin}"> Sign In </a>
-			<a sec:authorize="isAnonymous()" th:href="@{/signup}"> Sign Up </a>
-			<a sec:authorize="isAuthenticated()" th:href="@{/user}">
-				<span th:text="${username}"></span>	
-			</a>
-			<a sec:authorize="isAuthenticated()" th:href="@{/signout}"> Sign Out</a>	
+		<div th:fragment="navbar" class="nav-bar">
+		<form id="hidden-form" method="post" th:action="@{/forum/search}"></form>
+		<form id="hidden-form-buttons"></form>
+            <div class="nav-bar-left">
+	            <a th:href="@{/forum}">
+	                <img class="logo" th:src="@{/img/icon-logo.png}">
+	            </a>
+            </div>
+            <div class="nav-bar-right">
+                <div class="nav-bar-search">
+                    <input
+                    	type="text" 
+                    	class="search body-2" 
+                    	id="search"
+                    	name="search"
+                    	th:form="hidden-form"
+                    	placeholder="Search">
+                </div>
+                <div class="nav-bar-buttons">
+                    <button 
+                    	sec:authorize="isAnonymous()" 
+                    	th:formaction="@{/signin}"
+                    	th:form="hidden-form-buttons"
+                    	class="button-white-user button-1">
+                    		Sign In
+                    </button>
+                    <button 
+                    	sec:authorize="isAnonymous()"
+                    	th:formaction="@{/signup}"
+                    	th:form="hidden-form-buttons"
+                    	class="button-white-user button-1">
+                    		Sign Up
+                    </button>
+                    <button 
+                    	sec:authorize="isAuthenticated()" 
+                    	th:formaction="@{/user}"
+                    	th:form="hidden-form-buttons"
+                    	class="button-white-user button-1">
+                    		<span th:text="${username}"></span>	
+                    </button>
+                    <button 
+                    	sec:authorize="isAuthenticated()" 
+                    	th:formaction="@{/signout}" 
+                    	th:form="hidden-form-buttons"
+                    	class="button-white-filled button-1">
+                    		Sign Out
+                    </button>
+                </div>
+            </div>
 		</div>
+		
+		
+		<div class="right-container" th:fragment="right-container">
+	            <div class="trend-container-header">
+	                <h2>
+	                    Trending Topics
+	                </h2>
+	            </div>
+	            <div class="trend" th:each="trends: ${trends}">
+	                <div class="trend-topic">
+	                    <h3 class="overflow" th:text="${trends.title}">
+	                        Title
+	                    </h3>
+	                    <span class="body-2" th:text="${trends.vote} + ' comment/s'">
+	                        Comments
+	                    </span>
+	                </div>
+	                <div class="trend-action">
+	                    <button 
+	                    	class="action-button-rounded button-1"
+	                    	th:form="hidden-form-buttons"
+	                    	th:formaction="@{'/post/'+${trends.post_id}}">Join</button>
+	                </div>
+	            </div>
+	        </div>
 	</body>
 </html>

@@ -11,6 +11,7 @@ public class Comment {
 	private int user_id;
 	private String content;
 	private Timestamp created_at;
+	private String username;
 
 	public Comment() {
 	}
@@ -85,14 +86,25 @@ public class Comment {
 		this.created_at = created_at;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	@Override
 	public String toString() {
 		return "Comment {comment_id=" + comment_id + 
 				", post_id=" + post_id + 
 				", user_id=" + user_id + 
+				", username='" + username + "\'" +
 				", content='" + content + "\'" +
 				", created_at=" + created_at + "}";
 	}
+
+
 	
 	
 	

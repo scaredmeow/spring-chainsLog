@@ -31,7 +31,8 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public Post getPost(int PID) {
-		String sql = "SELECT * FROM posts WHERE post_id = " + PID;
+		String sql = "SELECT p.post_id, p.user_id, u.username, p.title ,p.content, p.vote, p.created_at "
+				+ "FROM posts as p JOIN users as u on u.user_id = p.user_id WHERE p.post_id = " + PID;
 		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Post.class));
 	}
 	
@@ -54,20 +55,86 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public List<Post> getAllPost() {
-		String sql="SELECT * FROM posts ORDER BY post_id DESC";
+		String sql="SELECT  k.post_id, k.user_id, u.username, k.title , k.content, k.comments, k.created_at\r\n"
+				+ "FROM users as u\r\n"
+				+ "JOIN (SELECT p.*, count(c.post_id) as comments\r\n"
+				+ "FROM (SELECT post_id FROM comments UNION SELECT post_id FROM posts) as n   \r\n"
+				+ "LEFT JOIN comments as c \r\n"
+				+ "ON c.post_id = n.post_id\r\n"
+				+ "LEFT JOIN posts as p\r\n"
+				+ "ON p.post_id = n.post_id\r\n"
+				+ "GROUP BY p.post_id\r\n"
+				+ "ORDER BY COUNT(c.post_id) DESC, p.created_at DESC\r\n"
+				+ "LIMIT 5) as k \r\n"
+				+ "ON u.user_id = k.user_id\r\n"
+				+ "ORDER BY k.created_at DESC\r\n";
 		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
 			@Override
 			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
 				Post post = new Post();
 				post.setPost_id(rs.getInt("post_id"));
 				post.setUser_id(rs.getInt("user_id"));
+				post.setUsername(rs.getString("username"));
+				post.setTitle(rs.getString("title"));
+				post.setContent(rs.getString("content"));
+				post.setVote(rs.getInt("comments"));
+				post.setCreated_at(rs.getTimestamp("created_at"));
+				return post;
+			}
+		});
+		return listOfPosts;
+	}
+
+	@Override
+	public List<Post> getTrend() {
+		String sql="SELECT  k.post_id, k.user_id, u.username, k.title , k.content, k.comments\r\n"
+				+ "FROM users as u\r\n"
+				+ "JOIN (SELECT p.post_id, p.user_id, p.title , p.content, count(c.post_id) as comments\r\n"
+				+ "FROM (SELECT post_id FROM comments UNION SELECT post_id FROM posts) as n   \r\n"
+				+ "LEFT JOIN comments as c \r\n"
+				+ "ON c.post_id = n.post_id\r\n"
+				+ "LEFT JOIN posts as p\r\n"
+				+ "ON p.post_id = n.post_id\r\n"
+				+ "GROUP BY p.post_id\r\n"
+				+ "ORDER BY COUNT(c.post_id) DESC, p.created_at DESC\r\n"
+				+ "LIMIT 5) as k \r\n"
+				+ "ON u.user_id = k.user_id\r\n"
+				+ "ORDER BY k.comments DESC";
+		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
+			@Override
+			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Post post = new Post();
+				post.setPost_id(rs.getInt("post_id"));
+				post.setUser_id(rs.getInt("user_id"));
+				post.setUsername(rs.getString("username"));
+				post.setTitle(rs.getString("title"));
+				post.setContent(rs.getString("content"));
+				post.setVote(rs.getInt("comments"));
+				return post;
+			}
+		});
+		return listOfPosts;
+	}
+
+	@Override
+	public List<Post> searchPost(String search) {
+		String sql = "SELECT p.post_id, p.user_id, u.username, p.title ,p.content, p.vote, p.created_at FROM "
+					+ "posts as p JOIN users as u on u.user_id = p.user_id WHERE p.title LIKE ? "
+					+ "ORDER BY created_at DESC LIMIT 5";
+		List<Post> listOfPosts = jdbcTemplate.query(sql, new RowMapper<Post>() {
+			@Override
+			public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Post post = new Post();
+				post.setPost_id(rs.getInt("post_id"));
+				post.setUser_id(rs.getInt("user_id"));
+				post.setUsername(rs.getString("username"));
 				post.setTitle(rs.getString("title"));
 				post.setContent(rs.getString("content"));
 				post.setVote(rs.getInt("vote"));
 				post.setCreated_at(rs.getTimestamp("created_at"));
 				return post;
 			}
-		});
+		} , new Object[] {"%" + search.toLowerCase().trim() + "%"} );
 		return listOfPosts;
 	}
 

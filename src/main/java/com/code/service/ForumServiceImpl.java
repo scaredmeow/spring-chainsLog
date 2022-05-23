@@ -40,6 +40,8 @@ public class ForumServiceImpl implements ForumService {
 		modelAndView.addObject("username", this.authService.getUser());
 		List<Post> post = this.postDao.getAllPost();
 		modelAndView.addObject("post", post);
+		List<Post> trends = this.postDao.getTrend();
+		modelAndView.addObject("trends", trends);
 		modelAndView.setViewName(viewName);
 		return modelAndView;
 	}
@@ -49,6 +51,8 @@ public class ForumServiceImpl implements ForumService {
 			String title, 
 			String content, 
 			Model model) {
+		List<Post> trends = this.postDao.getTrend();
+		model.addAttribute("trends", trends);
 		user = this.userDao.findByUserName(this.authService.getUser());
 		int UID = user.getUser_id();
 		post.setContent(content);
@@ -59,6 +63,19 @@ public class ForumServiceImpl implements ForumService {
 			return "redirect:/forum?error";
 		}
 		return "redirect:/forum";
+	}
+
+	@Override
+	public ModelAndView search(String search, String viewName) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("username", this.authService.getUser());
+		List<Post> post= this.postDao.searchPost(search);
+		modelAndView.addObject("post", post);
+		List<Post> trends = this.postDao.getTrend();
+		modelAndView.addObject("trends", trends);
+		modelAndView.setViewName(viewName);
+		
+		return modelAndView;
 	}
 
 }

@@ -10,92 +10,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.code.dao.PostDao;
-import com.code.dao.UserDao;
-import com.code.model.Post;
-import com.code.model.User;
-import com.code.service.AuthService;
 import com.code.service.PostService;
 
 @Controller
 @RequestMapping("/post") 
 public class PostController {
 	
-	@Autowired
-	private Post post;
-	
-	private PostDao postDao;
-	private UserDao userDao;
 	private PostService postService;
-	private AuthService authService;
+
 	
 	@Autowired
-	public PostController(
-			PostService postService,
-			AuthService authService,
-			PostDao postDao,
-			UserDao userDao) {
+	public PostController(PostService postService) {
 		this.postService = postService;
-		this.authService = authService;
-		this.postDao = postDao;
-		this.userDao = userDao;
+
 	}
 
 	@GetMapping("/{post_id}")
 	public ModelAndView postPage(@PathVariable("post_id") int PID) {
-		return this.postService.displayPostAndComments(PID, "post/post");
+		return this.postService.displayPostAndComments(PID, "post");
 	}
 
+	@PostMapping("/{post_id}")
+	public String createCommentPost(
+			@PathVariable("post_id") int PID,
+			@RequestParam("content") String content) {
+		return this.postService.createComment(PID, content);
+	}
+
+	@GetMapping("/{post_id}/comment/{comment_id}/delete")
+	public String deleteCommentPage(
+			@PathVariable("post_id") int PID,
+			@PathVariable("comment_id") int CID) {
+		return this.postService.deleteComment(PID, CID);
+	}	
+	
 	@GetMapping("/{post_id}/delete")
-	public String deletePage(
+	public String deletePostPage(
 			@PathVariable("post_id") int PID,
 			@RequestParam(required = false, value="profile") String params) {
-		try {
-			Post post = this.postDao.getPost(PID);
-			User user = this.userDao.findByUserID(post.getUser_id());
-			if (this.authService.getUser().equals(user.getUsername())) {
-				boolean result = this.postDao.deletePost(PID);
-
-				if(params == null) {
-					if (!result) {
-						return "redirect:/forum?error";
-					}
-					return "redirect:/forum";
-				}
-				if (!result) {
-					return "redirect:/user/" + this.authService.getUser() + "?error"; 
-				}
-				return "redirect:/user/" + this.authService.getUser();			
-			}			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		return "redirect:/post/"+PID;
-
+		return this.postService.deletePost(PID, params);
 	}
 
 	@GetMapping("/{post_id}/update")
-	public String updatePage(
+	public String updatePostPage(
 			@PathVariable("post_id") int PID,
 			@RequestParam(required = false, value="profile") String params,
 			Model model) {
-		try {
-			Post post = this.postDao.getPost(PID);
-			User user = this.userDao.findByUserID(post.getUser_id());
-			if (this.authService.getUser().equals(user.getUsername())) {
-				model.addAttribute("post", post);
-				if(params != null) {
-					model.addAttribute("params", "profile");
-				}
-				model.addAttribute("PID", PID);
-				return "post/updatePost";			
-			}			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		return "redirect:/post/"+PID;
+		return this.postService.updatePostRedirect(PID, params, model);
 	}
 	
 	@PostMapping("/{post_id}/update")
@@ -104,23 +65,13 @@ public class PostController {
 			@RequestParam(required = false, value="profile") String params,
 			@RequestParam("title") String title,
 			@RequestParam("content") String content) {
-		post.setContent(content);
-		post.setTitle(title);
-		post.setPost_id(PID);
-		boolean result = this.postDao.updatePost(post);
-		if (result) {
-			System.out.println("Error");
-		}
-		if(params == null) {
-			return "redirect:/forum";
-		}
-		return "redirect:/user/" + this.authService.getUser();
+		return this.postService.updatePost(PID, params, title, content);
 	}
 	@PostMapping("/{post_id}/backupdate")
-	public String backUpdatePage(@RequestParam(required = false, value="profile") String params) {
-		if(params == null) {
-			return "redirect:/forum";
-		}
-		return "redirect:/user/" + this.authService.getUser();
+	public String backUpdatePage(
+			@PathVariable("post_id") int PID,
+			@RequestParam(required = false, value="profile") String params) {
+		System.out.println(params);
+		return this.postService.redirectBackButton(PID, params);
 	}	
 }

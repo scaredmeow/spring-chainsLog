@@ -1,5 +1,6 @@
 package com.code.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +25,12 @@ public class ForumController {
 	
 	@GetMapping
 	public ModelAndView forumPage() {
-		return this.forumService.displayPostandUser("forum/forum");
+		return this.forumService.displayPostandUser("forum");
 	}
 	
 	@GetMapping("/create-a-post")
 	public ModelAndView submitPage() {
-		return this.forumService.displayPostandUser("forum/createPost");
+		return this.forumService.displayPostandUser("new-post");
 	}
 	
 	@PostMapping
@@ -38,6 +39,16 @@ public class ForumController {
 			@RequestParam("content") String content,
 			Model model) {
 		return this.forumService.createPost(title, content, model);
+	}
+	
+	@GetMapping("/search")
+	public String searchRedirect() {
+		return "redirect:/forum";
+	}
+	
+	@PostMapping("/search")
+	public ModelAndView search(@RequestParam("search") String search) {
+		return this.forumService.search(search, "forum");
 	}
 	
 }

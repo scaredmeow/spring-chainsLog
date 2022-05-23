@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
+	  
+	<head th:replace="fragments.html :: header">
+	</head>
+	<body style="background-image: url(/img/bg-forum.png);">
+		<div th:replace="fragments.html :: navbar"></div>
+		
+	    <div class="main-div">
+	        <div class="left-container comment-container">
+	        <div th:if="${param.error}"><h3>Error in Post</h3></div>
+	            <div class="post">
+	                <div class="post-header">
+	                    <div class="post-avatar">
+	                        <img th:src="@{/img/icon-avatar.png}">
+	                    </div>
+	                    <div class="post-title">
+	                        <h2 th:text="${post.title}">Title</h2>
+	                        <span class="subtitle" th:text="${post.username}">
+	                            User Name and Date Created
+	                        </span>
+	                    </div>
+                        <div class="post-buttons" th:if="${post.username} == ${currentUser}">
+	                        <button 
+      	                    	th:formaction="@{'/post/'+${post.post_id}+'/delete'}" 
+                   				th:form="hidden-form-buttons"
+	                        	class="error-button button-1">
+	                        		Delete
+	                        </button>
+	                        <button 
+	                            th:formaction="@{'/post/'+${post.post_id}+'/update'}" 
+                   				th:form="hidden-form-buttons"
+	                        	class="action-button-rounded button-1">
+	                        		Update
+	                        </button>
+                    	</div>
+	                </div>
+	                <div class="post-content">
+	                    <p class="body-1" th:text="${post.content}">
+	                        Post Content
+	                </div>
+	            </div>
+	            <h3 th:text="'Comment as ' + ${currentUser}"></h3>
+	            <div class="form">
+	                <form th:action="@{'/post/'+${post.post_id}}" method="post">
+	                    <div class="form-fields comment-area">
+	                        <textarea 
+	                        	id="content" 
+	                        	name="content"
+	                        	class="textarea subtitle" 
+	                        	placeholder="What are your thoughts? . . ."
+	                        	required></textarea>
+	                        <div class="form-buttons">
+	                            <button class="action-button-rounded button-1">Post</button>
+	                        </div>
+	                    </div>
+	                </form>
+	            </div>
+	
+	            <div class="hr" th:if="${commentCount} >= 1">
+	                <h2 th:text="${commentCount} == 1 ? ${commentCount} + ' Comment' : ${commentCount} + ' Comments' ">  </h2>
+	            </div>
+	            <div class="post comment" th:each="comment: ${comment}">
+	                <div class="post-header">
+	                    <div class="post-avatar">
+	                        <img th:src="@{/img/icon-avatar.png}">
+	                    </div>
+	                    <div class="post-title">
+	                        <h2 class="h3" th:text="${comment.username}">Username</h2>
+	                    </div>
+	                    <div class="post-buttons" th:if="${currentUser} == ${comment.username}">
+                        	<button 
+                        		th:formaction="@{'/post/'+ ${post.post_id} +'/comment/'+${comment.comment_id}+'/delete'}" 
+                   				th:form="hidden-form-buttons"
+                        		class="error-button button-1">
+                        			Delete
+                        	</button>
+                    	</div>
+	                </div>
+	                <div class="post-content">
+	                    <p class="body-1" th:text="${comment.content}">
+	                        Comment
+	                    </p>
+	                </div>
+	            </div>
+	        </div>		
+	        <div class="right-container" th:replace="fragments.html :: right-container">
+       		</div>
+		</div>
+	</body>
+</html>

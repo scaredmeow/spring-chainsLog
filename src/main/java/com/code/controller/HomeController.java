@@ -34,13 +34,13 @@ public class HomeController {
 	
 	@GetMapping("/signin")
 	public String signinPage() {
-		return this.authService.redirect("auth/signin");
+		return this.authService.redirect("signin");
 	}
 	
 
 	@GetMapping("/signup")
 	public String signupPage() {
-		return this.authService.redirect("auth/signup");
+		return this.authService.redirect("signup");
 	}
 	
 	@PostMapping("/signup")
@@ -50,7 +50,7 @@ public class HomeController {
 			@RequestParam("password") String password,
 			@RequestParam("confirmpassword") String confirmpassword,
 			Model model) {
-		return this.authService.signup(username, email, password, confirmpassword, "auth/signup" ,  model);
+		return this.authService.signup(username, email, password, confirmpassword, "signup" ,  model);
 	}
 	
 }

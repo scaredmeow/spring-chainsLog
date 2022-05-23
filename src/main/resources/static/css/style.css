@@ -1,0 +1,77 @@
+:root {
+  --global-foreground-color: #ffffff;
+  --global-box-border-color: rgba(192, 189, 184, 0.5);
+  --global-background-color: #061a25;
+  --global-background-color-post: #041d2a;
+  --global-action-color: #61a1cf;
+  --global-action-hover-color: #81b5db;
+  --global-error-color: #ec5760;
+  --global-error-hover-color: #e9787f;
+}
+
+/* Typography */
+
+h1 {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 2.8125rem;
+}
+
+h2 {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.875rem;
+}
+
+h3,
+.h3 {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.40625rem;
+}
+
+.subtitle {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.9375rem;
+  line-height: 1.17225rem;
+}
+
+.body-1 {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.171875rem;
+}
+
+.body-2 {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+}
+
+.button-1 {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+}
+
+.button-2 {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
+	  
+	<head th:replace="fragments.html :: header">
+	</head>
+	<body>
+		<div th:replace="fragments.html :: navbar"></div>
+		<div class="profile-div">
+	        <div class="left-container">
+	        	<div th:if="${param.error}"><h3>Error in Profile</h3></div>
+	            <div class="post" th:each="post: ${post}">
+	            	<a th:href="@{'/post/'+${post.post_id}}">
+		                <span>
+			                <div class="post-header">
+			                    <div class="post-avatar">
+			                        <img th:src="@{/img/icon-avatar.png}">
+			                    </div>
+			                    <div class="post-title">
+			                        <h2 th:text="${post.title}">Post Title</h2>
+			                        <span class="subtitle" th:text="${post.username}">
+			                            Post User and Date Creation
+			                        </span>
+			                    </div>
+			                    <div class="post-buttons">
+			                    	<form method="get"> 
+				                        <button 
+				                        	th:formaction="@{'/post/'+${post.post_id}+'/delete?profile=1'}" 
+				                        	name="profile"
+				                        	class="error-button button-1">
+				                        		Delete
+				                        </button>
+				                        <button 
+				                            th:formaction="@{'/post/'+${post.post_id}+'/update?profile=1'}" 
+				                            name="profile"
+				                        	class="action-button-rounded button-1">
+				                        		Update
+				                        </button>
+	                       			</form>	
+			                    </div>
+			                </div>
+			                <div class="post-content">
+			                    <p class="body-1" th:text="${post.content}">
+			                       	Content
+			                    </p>
+			                </div>
+		                </span>
+	                </a>
+	            </div>
+	        </div>
+    	</div>
+	</body>
+</html>
