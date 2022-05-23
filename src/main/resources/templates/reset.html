@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
+
+	<head th:replace="fragments.html :: header">
+	</head>
+<body>
+	<form th:action="@{/reset}" method="post">
+		<input type="text" name="email" id="email" class="textbox body-1" placeholder="email">
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>

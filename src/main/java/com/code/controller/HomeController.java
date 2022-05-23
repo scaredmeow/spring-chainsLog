@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.code.MailUtil;
 import com.code.service.AuthService;
 
 @Controller
@@ -51,6 +51,17 @@ public class HomeController {
 			@RequestParam("confirmpassword") String confirmpassword,
 			Model model) {
 		return this.authService.signup(username, email, password, confirmpassword, "signup" ,  model);
+	}
+	
+	@GetMapping("/reset")
+	public String forgotPage() {
+		return "reset";
+	}
+	
+	@PostMapping("/reset")
+	public String forgotPost(@RequestParam("email") String email) {
+		MailUtil.sendMail(email);
+		return "reset";
 	}
 	
 }
