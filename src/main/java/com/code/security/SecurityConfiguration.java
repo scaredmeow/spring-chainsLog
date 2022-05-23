@@ -34,7 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 					"/",
 					"/signup", 
 					"/forum",
-					"/forum/search").permitAll()
+					"/forum/search",
+					"/reset").permitAll()
 			.antMatchers(
 					"/forum/**",
 					"/post/**",
