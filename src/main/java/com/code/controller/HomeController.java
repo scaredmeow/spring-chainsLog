@@ -54,12 +54,12 @@ public class HomeController {
 	}
 	
 	@GetMapping("/reset")
-	public String forgotPage() {
-		return "reset";
+	public String resetPage() {
+		return this.authService.redirect("reset");
 	}
 	
 	@PostMapping("/reset")
-	public String forgotPost(@RequestParam("email") String email) {
+	public String resetPost(@RequestParam("email") String email) {
 		MailUtil.sendMail(email);
 		return "reset";
 	}

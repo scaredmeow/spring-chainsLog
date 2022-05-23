@@ -545,3 +545,8 @@
 .signup .form-fields {
   margin-bottom: 1.5rem;
 }
+
+/* Reset Password */
+.reset .form-fields {
+  margin-bottom: 1.5rem;
+}

@@ -5,10 +5,39 @@
 
 	<head th:replace="fragments.html :: header">
 	</head>
-<body>
+	<body style="padding-top:0rem">
+		<div class="whole-page">
+	        <div class="signin-container">
+	            <div class="vertical-logo">
+	                <img class="icon-logo" th:src="@{/img/icon-logo-vertical.png}">
+	            </div>
+	            <div class="signin-header">
+	                <h2>Password Reset</h2>
+	                <span class="body-1">Please enter your <b>email</b> to send the link for resetting your password.</span>
+	
+	            </div>
+	            <div class="signin-form reset">
+	            	<h3>Email does not exist </h3>
+	                <form th:action="@{/reset}" method="post">
+	                    <div class="form-fields">
+	                        <input 
+	                        	type="text" 
+	                        	name="email" 
+	                        	id="email"
+	                        	class="textbox body-2" 
+	                        	placeholder="Email">
+	                    </div>
+	                    <div class="form-buttons">
+	                        <button class="action-button button-1">Send</button>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	
 	<form th:action="@{/reset}" method="post">
 		<input type="text" name="email" id="email" class="textbox body-1" placeholder="email">
 		<input type="submit" value="Submit">
-	</form>
-</body>
+		</form>
+	</body>
 </html>

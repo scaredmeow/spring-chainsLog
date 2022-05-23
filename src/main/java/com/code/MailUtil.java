@@ -20,7 +20,7 @@ public class MailUtil {
 		prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 		prop.put("mail.smtp.host", "smtp.gmail.com");
 		prop.put("mail.smtp.port", "587");
-		String myEmail="neilchristianriego3@gmail.com";
+		String myEmail=System.getenv("EMAIL");
 		String password=System.getenv("PASSWORD");
 		Session session = Session.getInstance(prop, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -44,7 +44,7 @@ public class MailUtil {
 			msg.setFrom(new InternetAddress(myEmail));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 			msg.setSubject("Reset your chainsLog Password");
-			msg.setText("http://localhost:8080/reset/" + recipient);
+			msg.setText("https://chainslog.herokuapp.com/reset/" + recipient);
 			return msg;
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
