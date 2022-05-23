@@ -1,5 +1,6 @@
 package com.code.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,15 @@ public class PostServiceImpl implements PostService {
 			String viewName) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			Post post = this.postDao.getPost(PID);
+			Post userpost = this.postDao.getPost(PID);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy - hh:mm a");
+			String date = dateFormat.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(userpost.getCreated_at()));
+			userpost.setCreated_at(date);
 			List<Comment> comment = this.commentDao.getAllComments(PID);
 			List<Post> trends = this.postDao.getTrend();
 			modelAndView.addObject("trends", trends);
 			modelAndView.addObject("username", this.authService.getUser());
-			modelAndView.addObject("post", post);
+			modelAndView.addObject("post", userpost);
 			modelAndView.addObject("comment", comment);
 			modelAndView.addObject("commentCount", comment.size());
 			modelAndView.addObject("currentUser", this.authService.getUser());
