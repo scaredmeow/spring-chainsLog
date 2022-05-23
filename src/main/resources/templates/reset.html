@@ -17,7 +17,7 @@
 	
 	            </div>
 	            <div class="signin-form reset">
-	            	<h3>Email does not exist </h3>
+	            	<h3 th:if=${param.error}>Email does not exist </h3>
 	                <form th:action="@{/reset}" method="post">
 	                    <div class="form-fields">
 	                        <input 
@@ -34,10 +34,5 @@
 	            </div>
 	        </div>
 	    </div>
-	
-	<form th:action="@{/reset}" method="post">
-		<input type="text" name="email" id="email" class="textbox body-1" placeholder="email">
-		<input type="submit" value="Submit">
-		</form>
 	</body>
 </html>
