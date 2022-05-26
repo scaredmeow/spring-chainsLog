@@ -133,9 +133,11 @@ public class AuthServiceImpl implements AuthService {
 		
 		if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[^\\s]{8,}$",password)) {
 			modelAndView.addObject("errorPassword","error");
+			modelAndView.setViewName("reset-password");
 		}
 		if (!confirmpassword.equals(password)) {				
 			modelAndView.addObject("errorConfirmPassword","error");
+			modelAndView.setViewName("reset-password");
 		} 
 		if (Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[^\\s]{8,}$",password) && confirmpassword.equals(password)){
 				user.setEmail(hashed.substring(0,hashed.length()-6));
@@ -146,7 +148,6 @@ public class AuthServiceImpl implements AuthService {
 				}
 				modelAndView.setViewName("redirect:/reset");
 			}
-		modelAndView.setViewName("reset-password");
 		return modelAndView;
 	}
 
