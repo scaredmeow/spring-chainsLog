@@ -145,8 +145,9 @@ public class AuthServiceImpl implements AuthService {
 				boolean result = this.userDao.changeUserPassword(user);
 				if (result) {
 					modelAndView.setViewName("redirect:/signin");
+				} else {
+					modelAndView.setViewName("redirect:/reset");
 				}
-				modelAndView.setViewName("redirect:/reset");
 			}
 		return modelAndView;
 	}
