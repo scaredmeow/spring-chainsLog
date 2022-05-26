@@ -13,7 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailUtil {
-	public static void sendMail(String recipient) {
+	public static void sendMail(String recipient, String key) {
 		Properties prop = new Properties();
 		prop.put("mail.smtp.auth", "true");
 		prop.put("mail.smtp.starttls.enable", "true");
@@ -28,7 +28,7 @@ public class MailUtil {
 			}
 		});
 		System.out.println("Preparing email to send. . .");
-		Message msg = prepareMessage(session, myEmail, password, recipient);
+		Message msg = prepareMessage(session, myEmail, password, recipient, key);
 		try {
 			Transport.send(msg);
 		} catch (MessagingException e) {
@@ -38,13 +38,13 @@ public class MailUtil {
 		
 	}
 
-	private static Message prepareMessage(Session session, String myEmail, String password, String recipient) {
+	private static Message prepareMessage(Session session, String myEmail, String password, String recipient, String key) {
 		Message msg = new MimeMessage(session);
 		try {
 			msg.setFrom(new InternetAddress(myEmail));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 			msg.setSubject("Reset your chainsLog Password");
-			msg.setText("https://chainslog.herokuapp.com/reset/" + recipient);
+			msg.setText("https://chainslog.herokuapp.com/reset/" + key);
 			return msg;
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block

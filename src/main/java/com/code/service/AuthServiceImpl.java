@@ -1,5 +1,6 @@
 package com.code.service;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.code.MailUtil;
 import com.code.dao.UserDao;
 import com.code.model.User;
 import com.code.security.UserAccount;
@@ -19,17 +21,22 @@ import com.code.security.UserAccount;
 @Service
 public class AuthServiceImpl implements AuthService {
 
+	String secretKey = System.getenv("SECRET_KEY");
+	
 	@Autowired
 	private User user;
 	
 	private UserDao userDao;
 	private PasswordEncoder passwordEncoder;
+	private EncryptionAndDecryptionService authEncryptDecrypt;
 	
 	public AuthServiceImpl(
 			UserDao userDao,
-			PasswordEncoder passwordEncoder) {
+			PasswordEncoder passwordEncoder,
+			EncryptionAndDecryptionService authEncryptDecrypt) {
 		this.userDao = userDao;
 		this.passwordEncoder = passwordEncoder;
+		this.authEncryptDecrypt = authEncryptDecrypt;
 	}
 
 	@Override
@@ -103,6 +110,51 @@ public class AuthServiceImpl implements AuthService {
 		}
 		
 		return "redirect:/forum";
+	}
+
+	@Override
+	public String resetEmail(String email) {
+		boolean existsEmail = this.userDao.existsEmail(email);
+		if (existsEmail) {
+			Random rand = new Random();
+			Integer randSixKey = rand.nextInt(999999);
+			String hashedlink = this.authEncryptDecrypt.encrypt(email+randSixKey, secretKey);
+			MailUtil.sendMail(email, hashedlink);
+			return "redirect:/reset?success";
+		}
+		return "redirect:/reset?error";
+	}
+
+	@Override
+	public ModelAndView resetSavePassword(String hashedkey, String password, String confirmpassword) {
+		ModelAndView modelAndView = new ModelAndView();
+		String hashed = this.authEncryptDecrypt.decrypt(hashedkey, secretKey);
+		modelAndView.addObject("email",hashed.substring(0,hashed.length()-6));
+		
+		if (!Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[^\\s]{8,}$",password)) {
+			modelAndView.addObject("errorPassword","error");
+		}
+		if (!confirmpassword.equals(password)) {				
+			modelAndView.addObject("errorConfirmPassword","error");
+		} 
+		if (Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[^\\s]{8,}$",password) && confirmpassword.equals(password)){
+				user.setEmail(hashed.substring(0,hashed.length()-6));
+				user.setPassword(passwordEncoder.encode(password));
+				boolean result = this.userDao.changeUserPassword(user);
+				if (result) {
+					modelAndView.setViewName("redirect:/signin");
+				}
+				modelAndView.setViewName("redirect:/reset");
+			}
+		modelAndView.setViewName("reset-password");
+		return modelAndView;
+	}
+
+	@Override
+	public String resetRedirect(String hashedkey, Model model) {
+		String hashed = this.authEncryptDecrypt.decrypt(hashedkey, secretKey);
+		model.addAttribute("email",hashed.substring(0,hashed.length()-6));
+		return "reset-password";
 	}
 	
 }

@@ -15,6 +15,7 @@ public interface UserDao {
 	public List<User> getAllUsers();
 	public List<Post> getAllUserPosts(int UID);
 	public boolean saveUserRegistration(User user);
+	public boolean changeUserPassword(User user);
 	public boolean existsEmail(String email);
 	public boolean existsUsername(String username);
 	

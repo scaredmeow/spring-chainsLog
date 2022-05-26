@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.code.MailUtil;
 import com.code.service.AuthService;
 
 @Controller
@@ -60,8 +60,20 @@ public class HomeController {
 	
 	@PostMapping("/reset")
 	public String resetPost(@RequestParam("email") String email) {
-		MailUtil.sendMail(email);
-		return "reset";
+		return this.authService.resetEmail(email);
+	}
+	
+	@GetMapping("/reset/{hashedkey}")
+	public String resetPasswordPage(@PathVariable("hashedkey") String hashedkey, Model model) {
+		return this.authService.resetRedirect(hashedkey,model);
+	}
+	
+	@PostMapping("/reset/{hashedkey}")
+	public ModelAndView resetSavePost(
+			@PathVariable("hashedkey") String hashedkey,
+			@RequestParam("password") String password,
+			@RequestParam("confirmpassword") String confirmpassword) {
+		return this.authService.resetSavePassword(hashedkey, password, confirmpassword);
 	}
 	
 }

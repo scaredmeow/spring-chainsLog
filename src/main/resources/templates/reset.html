@@ -9,23 +9,26 @@
 		<div class="whole-page">
 	        <div class="signin-container">
 	            <div class="vertical-logo">
-	                <img class="icon-logo" th:src="@{/img/icon-logo-vertical.png}">
+		            <a th:href="@{/}">
+		            	<img class="icon-logo" th:src="@{/img/icon-logo-vertical.png}">
+		            </a>
 	            </div>
 	            <div class="signin-header">
 	                <h2>Password Reset</h2>
 	                <span class="body-1">Please enter your <b>email</b> to send the link for resetting your password.</span>
-	
 	            </div>
 	            <div class="signin-form reset">
-	            	<h3 th:if=${param.error}>Email does not exist </h3>
+	            	<h3 th:if=${param.error}>Email does not exist.</h3>
+	            	<h3 th:if=${param.success}>Please check your email for the link.</h3>
 	                <form th:action="@{/reset}" method="post">
 	                    <div class="form-fields">
 	                        <input 
-	                        	type="text" 
+	                        	type="email" 
 	                        	name="email" 
 	                        	id="email"
 	                        	class="textbox body-2" 
-	                        	placeholder="Email">
+	                        	placeholder="Email"
+	                        	required>
 	                    </div>
 	                    <div class="form-buttons">
 	                        <button class="action-button button-1">Send</button>

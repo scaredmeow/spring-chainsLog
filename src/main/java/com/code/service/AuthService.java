@@ -14,4 +14,10 @@ public interface AuthService {
 			Model model);
 	public String getUser();
 	public String redirect(String viewName);
+	public String resetRedirect(String hashedkey, Model model);
+	public String resetEmail(String email);
+	public ModelAndView resetSavePassword(
+			String hashedkey,
+			String password,
+			String confirmpassword);
 }

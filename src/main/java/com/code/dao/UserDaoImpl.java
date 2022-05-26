@@ -114,4 +114,13 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	@Override
+	public boolean changeUserPassword(User user) {
+		String sql = "UPDATE users SET password = ? WHERE email = ?";
+		return jdbcTemplate.update(
+					sql,
+					user.getPassword(),
+					user.getEmail()) == 1;
+	}
+
 }
